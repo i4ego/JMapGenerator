@@ -34,7 +34,7 @@ public class MapGenerator {
         for (int i = 0; i < chunk.size(); i++) {
             for (int j = 0; j < chunk.size(); j++) {
                 int id = (int) (chunk.get(i).get(j)[0] * blur.length);
-                toExport += (blur[id] + blur[id] + blur[id]);
+                toExport += (blur[id]);
             }
             toExport += "\n";
         }
