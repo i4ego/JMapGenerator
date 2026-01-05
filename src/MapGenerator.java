@@ -2,42 +2,37 @@ import java.util.Random;
 import java.util.Vector;
 
 public class MapGenerator {
-    private static Vector<double[]> generateMatrix (int maxHeight, int maxWidth) {
-        Vector<double[]> matrix = new Vector<double[]>(maxHeight);
+    private static Vector<double[]> generateMatrix (int maxSize) {
+        Vector<double[]> matrix = new Vector<>(maxSize);
 
         Random r = new Random();
-        int[] positions = new int[]{
-                r.nextInt(maxHeight),
-                r.nextInt(maxWidth),
-        };
 
-        for (int i = 0; i < maxHeight; i++) {
+        for (int i = 0; i < maxSize; i++) {
             double[] k = new double[16];
-            for (int j = 0; j < maxHeight; j++) {
+            for (int j = 0; j < maxSize; j++) {
                 k[j] = r.nextDouble();
             }
             matrix.add(k);
         }
         return matrix;
     }
-    public static Vector generateChunk(int maxSize) {
+    public static Vector<Vector<double[]>> generateChunk(int maxSize) {
 
-        Vector<Vector<double[]>> chunk = new Vector<Vector<double[]>>(maxSize){};
+        Vector<Vector<double[]>> chunk = new Vector<>(maxSize){};
         for (int i = 0; i < maxSize; i++) {
-            chunk.add(generateMatrix(maxSize, maxSize));
+            chunk.add(generateMatrix(maxSize));
         }
         return chunk;
     }
-    public static String export(Vector matrix, String[] blur){
-        Vector<Vector<double[]>> chunk = matrix;
-        String toExport = "";
-        for (int i = 0; i < chunk.size(); i++) {
-            for (int j = 0; j < chunk.size(); j++) {
-                int id = (int) (chunk.get(i).get(j)[0] * blur.length);
-                toExport += (blur[id]);
+    public static String export(Vector<Vector<double[]>> matrix, String[] blur){
+        StringBuilder toExport = new StringBuilder();
+        for (int i = 0; i < matrix.size(); i++) {
+            for (int j = 0; j < matrix.size(); j++) {
+                int id = (int) (matrix.get(i).get(j)[0] * blur.length);
+                toExport.append(blur[id]);
             }
-            toExport += "\n";
+            toExport.append("\n");
         }
-        return toExport;
+        return toExport.toString();
     }
 }
