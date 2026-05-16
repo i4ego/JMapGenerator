@@ -8,7 +8,7 @@ public class MapGenerator {
         Random r = new Random();
 
         for (int i = 0; i < maxSize; i++) {
-            double[] k = new double[16];
+            double[] k = new double[maxSize];
             for (int j = 0; j < maxSize; j++) {
                 k[j] = r.nextDouble();
             }
